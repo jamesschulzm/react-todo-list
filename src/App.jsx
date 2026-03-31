@@ -8,9 +8,9 @@ import { Header } from "./components/Header";
 import { Heading } from "./components/Heading";
 import { IconPlus, IconSchool } from "./components/icons";
 import { SubHeading } from "./components/SubHeading";
+import { ToDoForm } from "./components/ToDoForm";
 import { ToDoItem } from "./components/ToDoItem";
 import { ToDoList } from "./components/ToDoList";
-import { TextInput } from "./components/TextInput";
 
 const todos = [
   {
@@ -61,6 +61,10 @@ function App() {
     console.log("Dialog visibility:", !showDialog);
   };
 
+  const addTodo = () => {
+    console.log("Adding new todo item...");
+  };
+
   return (
     <main>
       <Container>
@@ -85,9 +89,7 @@ function App() {
           </ToDoList>
           <Footer>
             <Dialog isOpen={showDialog} onClose={toggleDialog}>
-              <form>
-                <TextInput placeholder="Digite o item que deseja adicionar" />
-              </form>
+              <ToDoForm onSubmit={addTodo} />
             </Dialog>
 
             <FabButton onClick={toggleDialog}>
