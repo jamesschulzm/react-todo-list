@@ -58,11 +58,10 @@ function App() {
 
   const toggleDialog = () => {
     setShowDialog(!showDialog);
-    console.log("Dialog visibility:", !showDialog);
   };
 
   const addTodo = () => {
-    console.log("Adding new todo item...");
+    toggleDialog();
   };
 
   return (

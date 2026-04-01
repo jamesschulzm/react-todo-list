@@ -9,8 +9,6 @@ export function Dialog({ isOpen, onClose, children }) {
   const dialogRef = useRef(null);
 
   useEffect(() => {
-    console.log("Dialog isOpen:", isOpen);
-
     if (isOpen) {
       openDialog();
     } else {
