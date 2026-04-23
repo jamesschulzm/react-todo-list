@@ -1,21 +1,18 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ToDoContext from "./ToDoContext";
 
+const TODOS = "todos";
+
 export function ToDoProvider({ children }) {
-  const [todos, setTodos] = useState([
-    {
-      id: 1,
-      description: "JSX e componentes",
-      completed: false,
-      createdAt: "2022-10-31",
-    },
-    {
-      id: 2,
-      description: "Controle de inputs e formulários controlados",
-      completed: true,
-      createdAt: "2022-10-31",
-    },
-  ]);
+  const savedTodo = localStorage.getItem(TODOS);
+
+  const [todos, setTodos] = useState(savedTodo ? JSON.parse(savedTodo) : []);
+
+  // Toda vez que alguém alterar o array de TODOs...
+  useEffect(() => {
+    // Salvar no localStorage
+    localStorage.setItem(TODOS, JSON.stringify(todos));
+  }, [todos]); // Dependências
 
   const addTodo = (formData) => {
     const description = formData.get("description");
