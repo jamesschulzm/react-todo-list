@@ -18,6 +18,14 @@ export function Dialog({ isOpen, onClose, children }) {
   // isOpen = toda vez que esse valor mudar, o useEffect será executado
   // Toda vez que o valor muda, aquela função vai ser executada
 
+  useEffect(() => {
+    const dialog = dialogRef.current;
+    dialog?.addEventListener("close", onClose);
+    return () => {
+      dialog?.removeEventListener("close", onClose);
+    };
+  }, [onClose]);
+
   // "Show the dialog" button opens the dialog modally
   const openDialog = () => {
     dialogRef.current.showModal();
