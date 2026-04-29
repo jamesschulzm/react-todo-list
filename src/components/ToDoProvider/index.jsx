@@ -4,9 +4,23 @@ import ToDoContext from "./ToDoContext";
 const TODOS = "todos";
 
 export function ToDoProvider({ children }) {
-  const savedTodo = localStorage.getItem(TODOS);
+  const savedTodos = localStorage.getItem(TODOS);
 
-  const [todos, setTodos] = useState(savedTodo ? JSON.parse(savedTodo) : []);
+  const [todos, setTodos] = useState(savedTodos ? JSON.parse(savedTodos) : []);
+  const [showDialog, setShowDialog] = useState(false);
+  const [selectedTodo, setSelectedTodo] = useState();
+
+  const openFormTodoDialog = (todo) => {
+    if (todo) {
+      setSelectedTodo(todo);
+    }
+    setShowDialog(true);
+  };
+
+  const closeFormTodoDialog = () => {
+    setShowDialog(false);
+    setSelectedTodo(null);
+  };
 
   // Toda vez que alguém alterar o array de TODOs...
   useEffect(() => {
@@ -33,10 +47,26 @@ export function ToDoProvider({ children }) {
   const toggleTodoCompleted = (todo) => {
     setTodos((prevState) => {
       return prevState.map((t) => {
-        if (t.id === todo.id) {
-          return { ...t, completed: !t.completed };
+        if (t.id == todo.id) {
+          return {
+            ...t,
+            completed: !t.completed,
+          };
         }
+        return t;
+      });
+    });
+  };
 
+  const editTodo = (formData) => {
+    setTodos((prevState) => {
+      return prevState.map((t) => {
+        if (t.id == selectedTodo.id) {
+          return {
+            ...t,
+            description: formData.get("description"),
+          };
+        }
         return t;
       });
     });
@@ -55,6 +85,11 @@ export function ToDoProvider({ children }) {
         addTodo,
         toggleTodoCompleted,
         deleteTodo,
+        showDialog,
+        openFormTodoDialog,
+        closeFormTodoDialog,
+        selectedTodo,
+        editTodo,
       }}
     >
       {children}
