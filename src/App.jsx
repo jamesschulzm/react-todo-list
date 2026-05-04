@@ -2,6 +2,7 @@ import { use } from "react";
 import { ChecklistsWrapper } from "./components/ChecklistsWrapper";
 import { Container } from "./components/Container";
 import { Dialog } from "./components/Dialog";
+import { EmptyState } from "./components/EmptyState";
 import { FabButton } from "./components/FabButton";
 import { Footer } from "./components/Footer";
 import { Header } from "./components/Header";
@@ -45,6 +46,8 @@ function App() {
             heading="Para estudar"
             items={todos.filter((t) => !t.completed)}
           />
+
+          {todos.length == 0 && <EmptyState />}
 
           <ToDoGroup
             heading="Concluído"
