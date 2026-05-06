@@ -3,7 +3,7 @@ import { IconClose } from "../icons";
 import "./dialog.style.css";
 
 export function Dialog({ isOpen, onClose, children }) {
-  // Não utilizar!!!
+  // não deveríamos fazer buscas no DOM desse jeito!
   // const dialog = document.querySelector("dialog");
 
   const dialogRef = useRef(null);

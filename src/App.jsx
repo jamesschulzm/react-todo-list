@@ -56,7 +56,10 @@ function App() {
 
           <Footer>
             <Dialog isOpen={showDialog} onClose={closeFormTodoDialog}>
-              <ToDoForm onSubmit={handleFormSubmit} />
+              <ToDoForm
+                onSubmit={handleFormSubmit}
+                defaultValue={selectedTodo?.description}
+              />
             </Dialog>
 
             <FabButton onClick={() => openFormTodoDialog()}>

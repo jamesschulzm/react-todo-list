@@ -1,10 +1,11 @@
 import { use } from "react";
-import ToDoContext from "../../components/ToDoProvider/ToDoContext";
 import { IconPencil, IconTrash } from "../icons";
+import ToDoContext from "../ToDoProvider/ToDoContext";
 import "./todo-item.style.css";
 
 export function ToDoItem({ item }) {
-  const { toggleTodoCompleted, deleteTodo } = use(ToDoContext);
+  const { toggleTodoCompleted, deleteTodo, openFormTodoDialog } =
+    use(ToDoContext);
 
   const styles = ["todo-item"];
 
@@ -31,7 +32,7 @@ export function ToDoItem({ item }) {
           <button className="btn" onClick={() => deleteTodo(item)}>
             <IconTrash />
           </button>
-          <button className="btn">
+          <button className="btn" onClick={() => openFormTodoDialog(item)}>
             <IconPencil />
           </button>
         </div>
