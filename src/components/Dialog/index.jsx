@@ -3,11 +3,10 @@ import { IconClose } from "../icons";
 import "./dialog.style.css";
 
 export function Dialog({ isOpen, onClose, children }) {
-  // não deveríamos fazer buscas no DOM desse jeito!
-  // const dialog = document.querySelector("dialog");
-
+  // Referência para o elemento <dialog> no DOM
   const dialogRef = useRef(null);
 
+  // Abre ou fecha o dialog conforme o valor de isOpen
   useEffect(() => {
     if (isOpen) {
       openDialog();
@@ -15,9 +14,9 @@ export function Dialog({ isOpen, onClose, children }) {
       closeDialog();
     }
   }, [isOpen]);
-  // isOpen = toda vez que esse valor mudar, o useEffect será executado
-  // Toda vez que o valor muda, aquela função vai ser executada
+  // O useEffect acima executa sempre que isOpen muda
 
+  // Adiciona e remove o listener para o evento 'close' do dialog
   useEffect(() => {
     const dialog = dialogRef.current;
     dialog?.addEventListener("close", onClose);
@@ -26,12 +25,12 @@ export function Dialog({ isOpen, onClose, children }) {
     };
   }, [onClose]);
 
-  // "Show the dialog" button opens the dialog modally
+  // Função para abrir o dialog de forma modal
   const openDialog = () => {
     dialogRef.current.showModal();
   };
 
-  // "Close" button closes the dialog
+  // Função para fechar o dialog
   const closeDialog = () => {
     dialogRef.current.close();
   };
@@ -40,6 +39,7 @@ export function Dialog({ isOpen, onClose, children }) {
     <>
       <dialog ref={dialogRef} className="dialog">
         <div className="btn-close-wrapper">
+          {/* Botão para fechar o dialog */}
           <button autoFocus onClick={onClose} className="btn-close">
             <IconClose />
           </button>

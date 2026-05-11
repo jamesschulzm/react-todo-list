@@ -1,3 +1,5 @@
+// Componente principal da aplicação: App
+// Gerencia o fluxo principal da interface e integra o contexto de tarefas
 import { use } from "react";
 import { ChecklistsWrapper } from "./components/ChecklistsWrapper";
 import { Container } from "./components/Container";
@@ -13,6 +15,7 @@ import { ToDoGroup } from "./components/ToDoGroup";
 import ToDoContext from "./components/ToDoProvider/ToDoContext";
 
 function App() {
+  // Obtém dados e funções do contexto de tarefas
   const {
     todos,
     addTodo,
@@ -23,6 +26,7 @@ function App() {
     editTodo,
   } = use(ToDoContext);
 
+  // Lida com o envio do formulário de tarefas (adiciona ou edita)
   const handleFormSubmit = (formData) => {
     if (selectedTodo) {
       editTodo(formData);
@@ -33,8 +37,10 @@ function App() {
   };
 
   return (
+    // Estrutura principal da aplicação
     <main>
       <Container>
+        {/* Cabeçalho com título */}
         <Header>
           <Heading>
             <IconSchool /> Plano de estudos
@@ -42,18 +48,22 @@ function App() {
         </Header>
 
         <ChecklistsWrapper>
+          {/* Grupo de tarefas pendentes */}
           <ToDoGroup
             heading="Para estudar"
             items={todos.filter((t) => !t.completed)}
           />
 
+          {/* Estado vazio quando não há tarefas */}
           {todos.length == 0 && <EmptyState />}
 
+          {/* Grupo de tarefas concluídas */}
           <ToDoGroup
             heading="Concluído"
             items={todos.filter((t) => t.completed)}
           />
 
+          {/* Rodapé com dialog de formulário e botão flutuante */}
           <Footer>
             <Dialog isOpen={showDialog} onClose={closeFormTodoDialog}>
               <ToDoForm
